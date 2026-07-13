@@ -179,9 +179,9 @@
         oklch(0 0 0 / 22%) 3px,
         oklch(0 0 0 / 22%) 3px
       ),
-      radial-gradient(120% 80% at 50% 0%, transparent 55%, oklch(0 0 0 / 45%) 100%);
+      radial-gradient(130% 95% at 50% 0%, transparent 68%, oklch(0 0 0 / 28%) 100%);
     mix-blend-mode: multiply;
-    opacity: 0.55;
+    opacity: 0.5;
   }
 
   /* Faint film grain, animated so it reads as signal noise, not a static texture. */
@@ -204,12 +204,12 @@
 
   .grid-lines {
     background-image:
-      linear-gradient(oklch(1 0 0 / 6%) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(1 0 0 / 6%) 1px, transparent 1px);
+      linear-gradient(oklch(1 0 0 / 14%) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(1 0 0 / 14%) 1px, transparent 1px);
     background-size: 3.5rem 3.5rem;
-    /* soft radial fade so the grid is strongest mid-page, quiet at the edges */
-    -webkit-mask-image: radial-gradient(130% 90% at 50% 40%, oklch(0 0 0) 55%, transparent 100%);
-    mask-image: radial-gradient(130% 90% at 50% 40%, oklch(0 0 0) 55%, transparent 100%);
+    /* keep the grid even across the viewport; fade only the far corners */
+    -webkit-mask-image: radial-gradient(160% 160% at 50% 50%, oklch(0 0 0) 82%, transparent 100%);
+    mask-image: radial-gradient(160% 160% at 50% 50%, oklch(0 0 0) 82%, transparent 100%);
   }
 }
 
