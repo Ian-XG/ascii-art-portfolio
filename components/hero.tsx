@@ -1,12 +1,14 @@
 "use client"
 
-import Image from "next/image"
 import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { buttonVariants } from "@/components/ui/button"
 
 const COMMAND = "whoami"
 const ease = [0.16, 1, 0.3, 1] as const
+// next/image doesn't prefix basePath onto unoptimized static-export src,
+// so resolve the asset path ourselves for GitHub Pages.
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? ""
 
 /** Types out the shell command one character at a time. */
 function useTyped(text: string, enabled: boolean, speed = 85) {
@@ -107,12 +109,12 @@ export function Hero() {
               </span>
             </div>
             <div className="p-2">
-              <Image
-                src="/portrait.png"
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${BASE}/portrait.png`}
                 alt="Portrait of Ian Gonzalez rendered in dithered black-and-white ASCII style"
                 width={620}
                 height={600}
-                priority
                 className="h-auto w-full rounded-sm grayscale contrast-[1.08]"
               />
             </div>
