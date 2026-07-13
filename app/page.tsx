@@ -1,4 +1,5 @@
 import { SiteNav } from "@/components/site-nav"
+import { GridBackground } from "@/components/grid-background"
 import { Hero } from "@/components/hero"
 import { AboutSection } from "@/components/about-section"
 import { ProjectsSection } from "@/components/projects-section"
@@ -7,7 +8,8 @@ import { ContactSection } from "@/components/contact-section"
 
 export default function Page() {
   return (
-    <main className="min-h-dvh overflow-x-clip grid-lines">
+    <main className="min-h-dvh overflow-x-clip">
+      <GridBackground />
       <SiteNav />
       <Hero />
       <AboutSection />

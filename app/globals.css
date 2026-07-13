@@ -204,9 +204,12 @@
 
   .grid-lines {
     background-image:
-      linear-gradient(oklch(1 0 0 / 3.5%) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(1 0 0 / 3.5%) 1px, transparent 1px);
+      linear-gradient(oklch(1 0 0 / 6%) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(1 0 0 / 6%) 1px, transparent 1px);
     background-size: 3.5rem 3.5rem;
+    /* soft radial fade so the grid is strongest mid-page, quiet at the edges */
+    -webkit-mask-image: radial-gradient(130% 90% at 50% 40%, oklch(0 0 0) 55%, transparent 100%);
+    mask-image: radial-gradient(130% 90% at 50% 40%, oklch(0 0 0) 55%, transparent 100%);
   }
 }
 
