@@ -8,6 +8,10 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
+// Next doesn't prefix basePath onto metadata icon URLs in static export,
+// so resolve them ourselves (empty on Vercel, /ascii-art-portfolio on Pages).
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+
 export const metadata: Metadata = {
   title: 'ian gonzalez — full-stack dev & ethical hacker',
   description:
@@ -15,20 +19,22 @@ export const metadata: Metadata = {
   generator: 'v0.app',
   icons: {
     icon: [
+      { url: `${BASE}/favicon.ico`, sizes: '32x32' },
       {
-        url: '/icon-light-32x32.png',
+        url: `${BASE}/icon-light-32x32.png`,
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/icon-dark-32x32.png',
+        url: `${BASE}/icon-dark-32x32.png`,
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/icon.svg',
+        url: `${BASE}/icon.svg`,
         type: 'image/svg+xml',
       },
     ],
-    apple: '/apple-icon.png',
+    shortcut: `${BASE}/favicon.ico`,
+    apple: `${BASE}/apple-icon.png`,
   },
 }
 
