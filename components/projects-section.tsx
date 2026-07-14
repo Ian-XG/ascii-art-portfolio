@@ -1,7 +1,21 @@
-import { TerminalWindow } from "@/components/terminal-window"
 import { Reveal, Stagger, StaggerItem } from "@/components/motion-primitives"
 
-const projects = [
+// next/image doesn't prefix basePath onto unoptimized static-export src,
+// so resolve screenshot paths ourselves for GitHub Pages.
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? ""
+
+type Project = {
+  name: string
+  description: string
+  stack: string[]
+  link: string
+  linkLabel: string
+  address: string
+  shot?: string
+  command?: string
+}
+
+const projects: Project[] = [
   {
     name: "workforce-os",
     description:
@@ -9,6 +23,8 @@ const projects = [
     stack: ["Next.js", "React Native", "Postgres"],
     link: "https://workforce-os.app",
     linkLabel: "→ visit workforce-os.app",
+    address: "workforce-os.app",
+    shot: "/shots/workforce-os.png",
   },
   {
     name: "terminal-zero",
@@ -17,6 +33,8 @@ const projects = [
     stack: ["Next.js", "TypeScript", "Tailwind"],
     link: "https://terminal-zero-sigma.vercel.app/",
     linkLabel: "→ visit terminal-zero",
+    address: "terminal-zero-sigma.vercel.app",
+    shot: "/shots/terminal-zero.png",
   },
   {
     name: "security-tooling",
@@ -25,6 +43,8 @@ const projects = [
     stack: ["Kali Linux", "Bash", "Python"],
     link: "#",
     linkLabel: "→ learn more",
+    address: "kali@localhost",
+    command: "$ nmap -sV --script vuln 10.0.0.5",
   },
   {
     name: "design-system",
@@ -33,15 +53,51 @@ const projects = [
     stack: ["React", "Storybook", "CSS"],
     link: "#",
     linkLabel: "→ view source",
+    address: "~/design-system",
+    command: "$ storybook dev -p 6006",
   },
 ]
 
-type Project = (typeof projects)[number]
+function Preview({ project }: { project: Project }) {
+  return (
+    <div className="relative aspect-[16/10] overflow-hidden border-b border-border bg-background">
+      {project.shot ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={`${BASE}${project.shot}`}
+          alt={`Screenshot of the ${project.name} website`}
+          loading="lazy"
+          className="h-full w-full object-cover object-top grayscale transition-[filter,transform] duration-500 group-hover:grayscale-0 group-hover:scale-[1.02]"
+        />
+      ) : (
+        // No live site — an honest monochrome terminal panel, not a fake screenshot.
+        <div className="grid-lines flex h-full w-full items-center justify-center p-5">
+          <code className="rounded border border-border bg-card/70 px-3 py-2 text-xs text-muted-foreground backdrop-blur-sm sm:text-sm">
+            <span className="text-foreground">{project.command}</span>
+            <span className="caret text-foreground" aria-hidden="true" />
+          </code>
+        </div>
+      )}
+    </div>
+  )
+}
 
 function ProjectCard({ project, className }: { project: Project; className?: string }) {
   return (
-    <TerminalWindow title={`${project.name}/`} className={className}>
-      <div className="flex h-full flex-col">
+    <div
+      className={`flex flex-col overflow-hidden rounded-md border border-border bg-card ${className ?? ""}`}
+    >
+      {/* Browser-style title bar showing the address. */}
+      <div className="flex items-center gap-2 border-b border-border bg-secondary px-4 py-2.5">
+        <span className="h-3 w-3 rounded-full bg-foreground/25" aria-hidden="true" />
+        <span className="h-3 w-3 rounded-full bg-foreground/45" aria-hidden="true" />
+        <span className="h-3 w-3 rounded-full bg-foreground/70" aria-hidden="true" />
+        <span className="ml-2 truncate text-xs text-muted-foreground">{project.address}</span>
+      </div>
+
+      <Preview project={project} />
+
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
         <h3 className="text-lg font-bold text-foreground">{project.name}</h3>
         <p className="mt-2 flex-1 leading-relaxed text-muted-foreground">
           {project.description}
@@ -65,7 +121,7 @@ function ProjectCard({ project, className }: { project: Project; className?: str
           {project.linkLabel}
         </a>
       </div>
-    </TerminalWindow>
+    </div>
   )
 }
 
@@ -79,13 +135,13 @@ export function ProjectsSection() {
       </Reveal>
 
       {/* Mobile: sticky "stacked windows" — each card pins under the nav and the
-          next scrolls up to overlay it, leaving the terminal titlebar peeking.
-          No transformed ancestors here, or position:sticky would break. */}
+          next scrolls up to overlay it. No transformed ancestors here, or
+          position:sticky would break. */}
       <ul className="space-y-4 sm:hidden">
         {projects.map((project, i) => (
           <li
             key={project.name}
-            className="sticky"
+            className="group sticky"
             style={{ top: `calc(4.75rem + ${i * 0.9}rem)` }}
           >
             <ProjectCard
@@ -94,7 +150,6 @@ export function ProjectsSection() {
             />
           </li>
         ))}
-        {/* trailing space so the last card can settle before the next section */}
         <li aria-hidden="true" className="h-8" />
       </ul>
 
