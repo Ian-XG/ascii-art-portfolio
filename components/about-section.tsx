@@ -38,7 +38,15 @@ export function AboutSection() {
               {facts.map((fact) => (
                 <li key={fact.key} className="flex gap-2">
                   <span className="text-foreground">{fact.key}:</span>
-                  <span className="text-muted-foreground">{fact.value}</span>
+                  <span className="flex items-center gap-1.5 text-muted-foreground">
+                    {fact.key === "status" && (
+                      <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground/60" />
+                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-foreground" />
+                      </span>
+                    )}
+                    {fact.value}
+                  </span>
                 </li>
               ))}
             </ul>
