@@ -20,7 +20,7 @@ const groups = [
   },
   {
     label: "security",
-    items: ["Kali Linux", "Pen Testing", "Nmap", "Burp Suite", "Wireshark"],
+    items: ["Kali Linux", "Pen Testing", "Nmap"],
   },
   {
     label: "tooling",
