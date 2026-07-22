@@ -4,7 +4,7 @@ import { Reveal } from "@/components/motion-primitives"
 const groups = [
   {
     label: "languages",
-    items: ["TypeScript", "JavaScript", "Python", "Go", "SQL"],
+    items: ["TypeScript", "JavaScript", "Python", "SQL"],
   },
   {
     label: "frontend",
