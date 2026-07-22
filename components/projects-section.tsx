@@ -11,8 +11,7 @@ type Project = {
   link: string
   linkLabel: string
   address: string
-  shot?: string
-  command?: string
+  shot: string
 }
 
 const projects: Project[] = [
@@ -36,48 +35,24 @@ const projects: Project[] = [
     address: "terminal-zero-sigma.vercel.app",
     shot: "/shots/terminal-zero.png",
   },
-  {
-    name: "security-tooling",
-    description:
-      "Penetration testing workflows and security research using Kali Linux to harden applications against real-world threats.",
-    stack: ["Kali Linux", "Bash", "Python"],
-    link: "#",
-    linkLabel: "→ learn more",
-    address: "kali@localhost",
-    command: "$ nmap -sV --script vuln 10.0.0.5",
-  },
-  {
-    name: "design-system",
-    description:
-      "A themeable component library with accessible primitives and documentation.",
-    stack: ["React", "Storybook", "CSS"],
-    link: "#",
-    linkLabel: "→ view source",
-    address: "~/design-system",
-    command: "$ storybook dev -p 6006",
-  },
 ]
 
 function Preview({ project }: { project: Project }) {
   return (
     <div className="relative aspect-[16/10] overflow-hidden border-b border-border bg-background">
-      {project.shot ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={`${BASE}${project.shot}`}
-          alt={`Screenshot of the ${project.name} website`}
-          loading="lazy"
-          className="h-full w-full object-cover object-top grayscale transition-[filter,transform] duration-500 group-hover:grayscale-0 group-hover:scale-[1.02]"
-        />
-      ) : (
-        // No live site — an honest monochrome terminal panel, not a fake screenshot.
-        <div className="grid-lines flex h-full w-full items-center justify-center p-5">
-          <code className="rounded border border-border bg-card/70 px-3 py-2 text-xs text-muted-foreground backdrop-blur-sm sm:text-sm">
-            <span className="text-foreground">{project.command}</span>
-            <span className="caret text-foreground" aria-hidden="true" />
-          </code>
-        </div>
-      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={`${BASE}${project.shot}`}
+        alt={`Screenshot of the ${project.name} website`}
+        loading="lazy"
+        className="h-full w-full object-cover object-top grayscale transition-[filter,transform] duration-500 group-hover:grayscale-0 group-hover:scale-[1.02]"
+      />
+      {/* Hover hint — fades in a monospace "open" affordance without leaving the vibe. */}
+      <div className="pointer-events-none absolute inset-0 flex items-end justify-end bg-gradient-to-t from-background/80 via-background/10 to-transparent p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+        <span className="rounded border border-border bg-card/80 px-2 py-1 text-xs text-foreground backdrop-blur-sm">
+          open ↗
+        </span>
+      </div>
     </div>
   )
 }
@@ -93,6 +68,13 @@ function ProjectCard({ project, className }: { project: Project; className?: str
         <span className="h-3 w-3 rounded-full bg-foreground/45" aria-hidden="true" />
         <span className="h-3 w-3 rounded-full bg-foreground/70" aria-hidden="true" />
         <span className="ml-2 truncate text-xs text-muted-foreground">{project.address}</span>
+        <span className="ml-auto flex shrink-0 items-center gap-1.5 text-[0.65rem] uppercase tracking-wider text-muted-foreground">
+          <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground/60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-foreground" />
+          </span>
+          live
+        </span>
       </div>
 
       <Preview project={project} />
@@ -114,8 +96,8 @@ function ProjectCard({ project, className }: { project: Project; className?: str
         </div>
         <a
           href={project.link}
-          target={project.link.startsWith("http") ? "_blank" : undefined}
-          rel={project.link.startsWith("http") ? "noopener noreferrer" : undefined}
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-4 inline-block text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           {project.linkLabel}
