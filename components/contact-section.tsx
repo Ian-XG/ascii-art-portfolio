@@ -3,11 +3,10 @@ import { Reveal } from "@/components/motion-primitives"
 
 const channels = [
   { key: "website", value: "workforce-os.app", href: "https://workforce-os.app" },
-  { key: "email", value: "ian@workforce-os.app", href: "mailto:ian@workforce-os.app" },
+  { key: "email", value: "ianx.gonzalezm@gmail.com", href: "mailto:ianx.gonzalezm@gmail.com" },
   { key: "instagram", value: "@iangonzalez.ig", href: "https://instagram.com/iangonzalez.ig" },
-  { key: "github", value: "github.com/ian-gonzalez", href: "https://github.com" },
+  { key: "github", value: "github.com/ian-xg", href: "https://github.com/ian-xg" },
   { key: "linkedin", value: "linkedin.com/in/ian-gonzalez", href: "https://linkedin.com" },
-  { key: "x", value: "@iangonzalez", href: "https://x.com" },
 ]
 
 export function ContactSection() {

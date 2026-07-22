@@ -21,9 +21,8 @@ export default function Page() {
           <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
             {[
               { label: "instagram", href: "https://instagram.com/iangonzalez.ig" },
-              { label: "github", href: "https://github.com" },
+              { label: "github", href: "https://github.com/ian-xg" },
               { label: "linkedin", href: "https://linkedin.com" },
-              { label: "x", href: "https://x.com" },
             ].map((s) => (
               <li key={s.label}>
                 <a
